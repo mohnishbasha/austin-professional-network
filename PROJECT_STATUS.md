@@ -49,7 +49,7 @@ No confirmed description was available for **August 2025**, so its card shows a 
 ## Test results (local, 2026-10-17)
 - `npm run validate:data`: events.json OK (3 events)
 - `npm run build`: 6 pages built (`/`, `/about/`, `/austin-bhet/`, `/events/`, `/get-involved/`, `/404.html`)
-- `npm test`: **19/19 passed**. Covers build output, internal links under the base path, the external-link allowlist, nav and current page, hero/CTA text, exact historical dates, URLs, and order, no upcoming fabrication, status logic, validator, empty-field fallbacks, no phone numbers or emails, no testimonial or count claims, no forms or login, no scraping or network code in `src/`, docs not published, a single h1, sequential headings, alt text, link labels, focus styles, reduced motion, and WCAG AA contrast for 17 token pairs in both themes.
+- `npm test`: **24/24 passed** (19 original tests plus 5 for search and agent readiness). Covers build output, internal links under the base path, the external-link allowlist, nav and current page, hero/CTA text, exact historical dates, URLs, and order, no upcoming fabrication, status logic, validator, empty-field fallbacks, no phone numbers or emails, no testimonial or count claims, no forms or login, no scraping or network code in `src/`, docs not published, a single h1, sequential headings, alt text, link labels, focus styles, reduced motion, and WCAG AA contrast for 17 token pairs in both themes.
 - Mutation check: changing an event date to the future and lowering text contrast both made the tests fail as expected.
 - Builds also pass with `BASE_PATH=""` (custom domain) and `BASE_PATH=/other-repo`.
 - Manual: headless Chrome screenshots at 1366px and 375px, in light and dark; `scrollWidth == 375` on all pages; mobile menu opens and closes (Escape closes it too).
@@ -58,6 +58,13 @@ No confirmed description was available for **August 2025**, so its card shows a 
 ### Not tested in this environment
 - Screen-reader testing (VoiceOver/NVDA) and a full automated axe audit. The structural checks above are a partial substitute.
 - Real-device testing on iOS/Android.
+
+## Search and agent readiness (added 2026-10-17)
+- Added a sitemap, robots.txt, llms.txt, JSON-LD (Organization, WebSite, and one Event per event), Open Graph and Twitter tags, and a 1200×630 preview image.
+- Tests cover the sitemap contents, the robots.txt sitemap line, llms.txt (events in order, no contact details), and valid JSON-LD on every page.
+- They also check that event JSON-LD matches the confirmed data and adds no performers, offers, sponsors, or end dates.
+- **Limitation:** `robots.txt` is ignored on a project site because it isn't at the domain root. Crawling is still allowed by default. A custom domain would make it effective.
+- **Manual step:** submit `sitemap.xml` in Google Search Console and Bing Webmaster Tools. This needs the owner's account.
 
 ## Blockers / manual steps
 1. **Dependabot PRs #1–#4** (action version bumps) are open. Review them and merge once their checks pass.

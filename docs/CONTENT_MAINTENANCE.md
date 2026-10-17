@@ -68,6 +68,9 @@ The three original events are fixed references. **Never change their dates or Lu
 
 Their descriptions summarize topics from the organizers' recap. Speaker names, attendance figures, and venues were left out on purpose. Add them only with approval and consent (see `docs/PRIVACY_AND_PUBLICATION.md`).
 
+### Search and agent files update themselves
+`sitemap.xml`, `llms.txt`, and the Events JSON-LD are generated from `events.json` and `site.json` on every build, so there is nothing to edit by hand. If you add a page, add it to `PAGES` in `src/lib/seo.mjs`. If the branding changes, regenerate `public/og-image.png` at 1200×630.
+
 ## Site settings: `src/data/site.json`
 - `linkedInGroup.url`: the primary CTA destination, used on every page.
 - `tagline`, `description`: used in the hero, footer, and meta tags.

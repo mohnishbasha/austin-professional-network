@@ -18,6 +18,14 @@ It is a static site with no backend, database, login, forms, or tracking, hosted
 | `/events/` | Upcoming events (empty state when none is confirmed), past events, interest CTA |
 | `/get-involved/` | Ways to contribute and how sponsorship is handled |
 
+## Search and agent readiness
+Each item is generated at build time from `src/data/` and `src/lib/seo.mjs`, so it stays in sync with the pages:
+- `/sitemap.xml`: every public page; the 404 page is excluded.
+- `/robots.txt`: allows all crawlers and points to the sitemap. It only takes effect on a custom domain (see `docs/DEPLOYMENT.md`).
+- `/llms.txt`: a plain-text summary of the site and events for AI agents.
+- JSON-LD (schema.org): an `Organization` and a `WebSite` node on every page, plus one `Event` per event on `/events/`, using only confirmed fields.
+- Open Graph and Twitter card tags, with a 1200×630 `og-image.png` link preview.
+
 ## Stack
 
 - [Astro](https://astro.build) 7, static output (`dist/`): real HTML per route, so there's no SPA 404 workaround on GitHub Pages.

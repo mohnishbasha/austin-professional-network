@@ -29,6 +29,13 @@ The base path is computed automatically as `/<repo-name>`, with `SITE_URL=https:
    - `BASE_PATH` = *(empty)*
 4. Re-run the workflow.
 
+## Search engines and AI agents
+- **Sitemap:** `https://<owner>.github.io/<repo>/sitemap.xml`. Submit it in [Google Search Console](https://search.google.com/search-console) (add a *URL-prefix* property for the site URL) and in Bing Webmaster Tools.
+- **robots.txt limitation:** crawlers only read `robots.txt` at the domain root. On a project site (`owner.github.io/repo/`) the generated `robots.txt` is ignored. Without one, crawlers treat everything as allowed, which is the intended policy. Using a custom domain makes the generated file live.
+- **llms.txt:** served at `<site>/llms.txt` and advertised with `<link rel="alternate">` on every page.
+- **Validate structured data:** paste a page URL into Google's [Rich Results Test](https://search.google.com/test/rich-results) or the [Schema Markup Validator](https://validator.schema.org/). Events have no venue or offers on purpose, so Google may report missing *recommended* fields. That is expected and must not be "fixed" with invented data.
+- **Preview cards:** check them with LinkedIn's [Post Inspector](https://www.linkedin.com/post-inspector/).
+
 ## Local production build
 ```bash
 npm run check                                          # default base /austin-professional-network

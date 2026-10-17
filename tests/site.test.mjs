@@ -230,3 +230,66 @@ test('color tokens meet WCAG AA (4.5:1) in light and dark themes', async () => {
     }
   }
 });
+
+// ---------- Search & agent readiness ----------
+const SITE = process.env.SITE_URL || 'https://mohnishbasha.github.io';
+const abs = (p = '') => new URL(`${BASE}/${p}`, SITE).href;
+const jsonLdOf = (html) => [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => JSON.parse(m[1]));
+
+test('sitemap.xml lists every public page with absolute URLs and excludes 404', async () => {
+  const xml = await read('sitemap.xml');
+  assert.match(xml, /^<\?xml/);
+  const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+  assert.deepEqual(locs.sort(), ['', 'about/', 'austin-bhet/', 'events/', 'get-involved/'].map(abs).sort());
+  assert.ok(!xml.includes('404'));
+});
+
+test('robots.txt allows crawling and points at the sitemap', async () => {
+  const txt = await read('robots.txt');
+  assert.match(txt, /User-agent: \*\nAllow: \//);
+  assert.ok(txt.includes(`Sitemap: ${abs('sitemap.xml')}`));
+});
+
+test('llms.txt summarizes pages and events from the data file', async () => {
+  const txt = await read('llms.txt');
+  assert.ok(txt.startsWith(`# ${site.name}`));
+  assert.ok(txt.includes(LINKEDIN));
+  for (const p of ['about/', 'austin-bhet/', 'events/', 'get-involved/']) assert.ok(txt.includes(abs(p)), p);
+  const pastBlock = txt.slice(txt.indexOf('## Past events'));
+  let last = -1;
+  for (const h of HISTORICAL) {
+    const i = pastBlock.indexOf(`${h.label}): ${h.url}`);
+    assert.ok(i > last, `${h.title} missing or out of order in llms.txt`);
+    last = i;
+  }
+  if (partitionEvents(eventsData.events).upcoming.length === 0) assert.match(txt, /## Upcoming events\n\n- None confirmed/);
+  assert.ok(!/\(?\b\d{3}\)?[\s.\-]\d{3}[\s.\-]\d{4}\b|[\w.+-]+@[\w-]+\.\w+/.test(txt), 'contact details in llms.txt');
+});
+
+test('every page has valid JSON-LD with the organization and social preview tags', async () => {
+  assert.ok(existsSync(path.join(dist, 'og-image.png')));
+  for (const p of PAGES) {
+    const html = await read(p);
+    const blocks = jsonLdOf(html);
+    assert.equal(blocks.length, 1, `${p}: JSON-LD block`);
+    const org = blocks[0]['@graph'].find((n) => n['@type'] === 'Organization');
+    assert.equal(org.name, site.name);
+    assert.deepEqual(org.sameAs, [LINKEDIN]);
+    assert.ok(html.includes(`<meta property="og:image" content="${abs('og-image.png')}"`), `${p}: og:image`);
+    assert.match(html, /<meta name="twitter:card" content="summary_large_image"/);
+  }
+});
+
+test('events JSON-LD matches confirmed data and invents nothing', async () => {
+  const graph = jsonLdOf(await read('events/index.html'))[0]['@graph'];
+  const evs = graph.filter((n) => n['@type'] === 'Event');
+  assert.equal(evs.length, eventsData.events.length);
+  for (const h of HISTORICAL) {
+    const e = evs.find((x) => x.startDate === h.date);
+    assert.ok(e, h.date);
+    assert.equal(e.name, h.title);
+    assert.equal(e.url, h.url);
+    assert.equal(e.location.name, 'Austin, Texas');
+  }
+  for (const e of evs) for (const k of ['performer', 'offers', 'endDate', 'sponsor', 'attendee']) assert.ok(!(k in e), `${e.name}: unexpected ${k}`);
+});

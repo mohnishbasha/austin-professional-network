@@ -24,6 +24,7 @@ A static Astro site published to GitHub Pages for a **professional networking co
 - `src/lib/events.mjs`: status logic (date-based; `cancelled`/`postponed` override) and validation
 - `src/lib/url.mjs`: `url()` helper. **Always** use it for internal links so the base path works.
 - `src/pages/`, `src/components/`, `src/layouts/Base.astro`, `src/styles/global.css`
+- `src/lib/seo.mjs` + `src/pages/{sitemap.xml,robots.txt,llms.txt}.js`: crawler and agent files, plus JSON-LD builders. Event JSON-LD must never add performers, offers, or sponsors unless they are confirmed
 - `tests/site.test.mjs`: build-output checks (links, events, privacy, accessibility, contrast)
 
 ## Conventions
