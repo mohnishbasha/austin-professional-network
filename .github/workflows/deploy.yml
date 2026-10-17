@@ -1,0 +1,58 @@
+name: Build, check, and deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    # Weekly rebuild so events move from "upcoming" to "past" automatically.
+    - cron: '0 11 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: Configure site URL and base path
+        # Project sites live at https://<owner>.github.io/<repo>/. For a custom domain,
+        # set repository variables SITE_URL (e.g. https://example.org) and BASE_PATH (empty).
+        env:
+          SITE_URL_OVERRIDE: ${{ vars.SITE_URL }}
+          BASE_PATH_OVERRIDE: ${{ vars.BASE_PATH }}
+        run: |
+          echo "SITE_URL=${SITE_URL_OVERRIDE:-https://${GITHUB_REPOSITORY_OWNER}.github.io}" >> "$GITHUB_ENV"
+          if [ -n "${SITE_URL_OVERRIDE}" ]; then echo "BASE_PATH=${BASE_PATH_OVERRIDE}" >> "$GITHUB_ENV";
+          else echo "BASE_PATH=/${GITHUB_REPOSITORY#*/}" >> "$GITHUB_ENV"; fi
+      - run: npm ci
+      - name: Validate data, build, and test
+        run: npm run check
+      - uses: actions/upload-pages-artifact@v4
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        with:
+          path: dist
+
+  deploy:
+    needs: check
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

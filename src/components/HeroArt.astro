@@ -1,0 +1,28 @@
+---
+// Decorative: different career stages gathered around one table.
+const people = [
+  { x: 200, y: 52, label: 'Student' },
+  { x: 338, y: 140, label: 'Mentor' },
+  { x: 300, y: 300, label: 'Job seeker' },
+  { x: 100, y: 300, label: 'Professional' },
+  { x: 62, y: 140, label: 'Career changer' },
+];
+---
+<svg class="hero__art" viewBox="0 0 400 370" aria-hidden="true" focusable="false">
+  <circle cx="200" cy="190" r="150" fill="none" style="stroke: var(--line)" stroke-width="1.5" stroke-dasharray="4 7" />
+  {people.map((a, i) => people.slice(i + 1).map((b) => (
+    <line x1={a.x} y1={a.y} x2={b.x} y2={b.y} style="stroke: var(--brand)" stroke-opacity="0.18" stroke-width="1.5" />
+  )))}
+  <circle cx="200" cy="190" r="62" style="fill: var(--surface); stroke: var(--brand)" stroke-width="2.5" />
+  <text x="200" y="184" text-anchor="middle" style="fill: var(--brand); font-family: var(--font-display)" font-size="24" font-weight="700">Austin</text>
+  <text x="200" y="212" text-anchor="middle" style="fill: var(--accent); font-family: var(--font-display)" font-size="24" font-weight="700" font-style="italic">Bhet</text>
+  {people.map((p, i) => (
+    <g>
+      <line x1="200" y1="190" x2={p.x} y2={p.y} style="stroke: var(--brand)" stroke-opacity="0.35" stroke-width="2" />
+      <circle cx={p.x} cy={p.y} r="26" style={`fill: ${i % 2 ? 'var(--accent-soft)' : 'var(--surface)'}; stroke: ${i % 2 ? 'var(--accent)' : 'var(--brand)'}`} stroke-width="2" />
+      <circle cx={p.x} cy={p.y - 6} r="7" style={`fill: ${i % 2 ? 'var(--accent)' : 'var(--brand)'}`} />
+      <path d={`M${p.x - 12} ${p.y + 13} a12 10 0 0 1 24 0`} style={`fill: ${i % 2 ? 'var(--accent)' : 'var(--brand)'}`} />
+      <text x={p.x} y={p.y + 46} text-anchor="middle" style="fill: var(--muted); font-family: var(--font-body)" font-size="13" font-weight="600">{p.label}</text>
+    </g>
+  ))}
+</svg>

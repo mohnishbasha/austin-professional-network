@@ -1,0 +1,76 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import LinkedInCTA from '../components/LinkedInCTA.astro';
+import site from '../data/site.json';
+
+const ways = [
+  { icon: 'calendar', title: 'Attend future meetups', text: 'Come meet people, share what you do, and learn something practical.' },
+  { icon: 'tools', title: 'Volunteer to organize', text: 'Help plan a gathering, find a space, or coordinate the program.' },
+  { icon: 'mic', title: 'Present a professional topic', text: 'Share a short talk on your field, your career path, or a practical skill.' },
+  { icon: 'people', title: 'Join a panel discussion', text: 'Answer questions alongside other professionals about how careers really work.' },
+  { icon: 'doc', title: 'Provide career or resume guidance', text: 'Review resumes or give interview tips to people who are job hunting.' },
+  { icon: 'star', title: 'Mentor students or job seekers', text: 'Offer an ongoing point of contact for someone earlier in their career.' },
+  { icon: 'hands', title: 'Help with event logistics', text: 'Check-in, setup, refreshments, cleanup — the work that makes gatherings run.' },
+  { icon: 'cup', title: 'Sponsor refreshments or venue space', text: 'Support the community with snacks, drinks, or a place to meet.' },
+  { icon: 'bulb', title: 'Suggest topics or activities', text: 'Tell organizers what you would like to learn or try at the next gathering.' },
+];
+---
+<Base title="Get Involved" current="get-involved" description="Ways to contribute to the Austin Professional Network Community: attend, volunteer, present, mentor, or sponsor.">
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow">Get involved</p>
+      <h1>There's a role for everyone</h1>
+      <p class="lead">Austin Bhet is volunteer-led and volunteer-supported. Whatever your career stage, there is a way to contribute.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="ways">
+    <div class="container">
+      <h2 id="ways" class="visually-hidden">Ways to contribute</h2>
+      <div class="grid">
+        {ways.map((w) => <div class="card"><Icon name={w.icon} /><h3>{w.title}</h3><p>{w.text}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" aria-labelledby="how">
+    <div class="container narrow">
+      <h2 id="how">How to raise your hand</h2>
+      <ol>
+        <li>Join the <a class="ext" href={site.linkedInGroup.url} rel="noopener">{site.linkedInGroup.name}</a>.</li>
+        <li>Introduce yourself in the group, or message one of the group admins.</li>
+        <li>Say how you would like to help — attending, presenting, mentoring, volunteering, or sponsoring.</li>
+      </ol>
+      <p class="muted">This website does not have a sign-up form and does not collect your information. Conversations about participation happen in the LinkedIn group.</p>
+      {site.contact.interestFormUrl && (
+        <p><a class="btn btn--secondary ext" href={site.contact.interestFormUrl} rel="noopener">Share your interest</a></p>
+      )}
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="sponsor-heading" id="sponsor">
+    <div class="container split">
+      <div>
+        <h2 id="sponsor-heading">Sponsors and community supporters</h2>
+        <p>Organizations and individuals can support professional development in Austin by contributing:</p>
+        <ul class="checklist">
+          <li>Snacks or light refreshments</li>
+          <li>Indoor venue space</li>
+          <li>Educational resources or speakers</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>How we handle sponsorship</h3>
+        <ul class="checklist">
+          <li>Support is confirmed with organizers before any event is announced with it.</li>
+          <li>Sponsors are named only with their permission.</li>
+          <li>Talks are educational, not sales pitches.</li>
+          <li>Sponsorship does not buy access to attendee contact information.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section"><div class="container"><LinkedInCTA heading="Ready to help?" /></div></section>
+</Base>

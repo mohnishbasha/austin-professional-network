@@ -1,0 +1,21 @@
+{
+  "name": "austin-professional-network",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Static website for the Austin Professional Network Community (Austin Bhet).",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "validate:data": "node scripts/validate-data.mjs",
+    "test": "node --test tests/",
+    "check": "npm run validate:data && npm run build && npm test"
+  },
+  "engines": {
+    "node": ">=22.22.0"
+  },
+  "dependencies": {
+    "astro": "^7.4.0"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Austin Professional Network Community",
+  "shortName": "Austin Bhet",
+  "tagline": "Real People. Meaningful Connections. Stronger Careers.",
+  "description": "A professional networking community for job seekers, working professionals, students, and mentors in the Greater Austin area — built around in-person Austin Bhet gatherings.",
+  "linkedInGroup": {
+    "name": "Amhi Austinkar LinkedIn Group",
+    "url": "https://www.linkedin.com/groups/14014249"
+  },
+  "contact": {
+    "_comment": "No official contact address has been provided. Leave empty until the organizers supply a verified address. The site falls back to the LinkedIn group.",
+    "email": "",
+    "interestFormUrl": ""
+  }
+}

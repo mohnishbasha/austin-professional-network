@@ -1,0 +1,53 @@
+{
+  "_readme": "Edit this file to add or update events. See docs/CONTENT_MAINTENANCE.md. Leave unknown fields empty — never guess. Status is computed from the date unless set to 'cancelled' or 'postponed'.",
+  "events": [
+    {
+      "id": "austin-bhet-2024-12",
+      "title": "Austin Bhet — December 2024",
+      "date": "2024-12-05",
+      "status": "",
+      "description": "The first Austin Bhet professional gathering. Attendees met in person to share what they do for a living or hope to do next, followed by short community presentations on topics including artificial intelligence, cybersecurity, and professional networking.",
+      "registrationUrl": "https://lu.ma/mbnkg3oy",
+      "location": "",
+      "agenda": [],
+      "speakers": [],
+      "sponsors": [],
+      "recapUrl": "",
+      "image": "",
+      "source": "Date and URL from project owner. Description summarized from the organizers' planning document recap (topics only).",
+      "lastUpdated": "2026-10-17"
+    },
+    {
+      "id": "austin-bhet-2025-03",
+      "title": "Austin Bhet — March 2025",
+      "date": "2025-03-06",
+      "status": "",
+      "description": "A career-paths edition. Short sessions from community members explored fields such as tech consulting, starting a business, music and content creation, academia, financial advising, and community work, followed by informal networking.",
+      "registrationUrl": "https://lu.ma/hnxoim47",
+      "location": "",
+      "agenda": [],
+      "speakers": [],
+      "sponsors": [],
+      "recapUrl": "",
+      "image": "",
+      "source": "Date and URL from project owner. Description summarized from the organizers' planning document recap (topics only).",
+      "lastUpdated": "2026-10-17"
+    },
+    {
+      "id": "austin-bhet-2025-08",
+      "title": "Austin Bhet — August 2025",
+      "date": "2025-08-08",
+      "status": "",
+      "description": "",
+      "registrationUrl": "https://lu.ma/bk3pmhy5",
+      "location": "",
+      "agenda": [],
+      "speakers": [],
+      "sponsors": [],
+      "recapUrl": "",
+      "image": "",
+      "source": "Date and URL from project owner. No confirmed description available.",
+      "lastUpdated": "2026-10-17"
+    }
+  ]
+}

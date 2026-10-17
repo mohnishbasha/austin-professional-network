@@ -1,0 +1,43 @@
+---
+import { formatEventDate } from '../lib/events.mjs';
+const { event, headingLevel = 3 } = Astro.props;
+const H = `h${headingLevel}`;
+const [y, m, d] = event.date.split('-').map(Number);
+const month = new Intl.DateTimeFormat('en-US', { month: 'short', timeZone: 'UTC' }).format(new Date(Date.UTC(y, m - 1, d)));
+const statusLabel = { past: 'Past event', upcoming: 'Upcoming', cancelled: 'Cancelled', postponed: 'Postponed' }[event.resolvedStatus];
+const linkLabel = event.resolvedStatus === 'upcoming' ? 'Register' : 'View the original event page';
+const has = (v) => Array.isArray(v) ? v.length > 0 : Boolean(v);
+---
+<li class="card event-card" data-event-id={event.id} data-status={event.resolvedStatus}>
+  <div class="event-card__date" aria-hidden="true">
+    <span class="event-card__month">{month}</span>
+    <span class="event-card__day">{d}</span>
+    <span class="event-card__year">{y}</span>
+  </div>
+  <div>
+    <div class="event-card__meta">
+      <span class={`badge badge--${event.resolvedStatus}`}>{statusLabel}</span>
+      <time datetime={event.date}>{formatEventDate(event.date)}</time>
+      {has(event.location) && <span>{event.location}</span>}
+    </div>
+    <H>{event.title}</H>
+    {has(event.image) && <img src={event.image} alt="" loading="lazy" />}
+    {has(event.description)
+      ? <p>{event.description}</p>
+      : <p class="muted">Additional details for this gathering haven't been added yet.</p>}
+    {has(event.agenda) && (
+      <>
+        <p><strong>Agenda</strong></p>
+        <ul class="inline">{event.agenda.map((item) => <li>{item}</li>)}</ul>
+      </>
+    )}
+    {has(event.speakers) && <p><strong>Speakers:</strong> {event.speakers.join(', ')}</p>}
+    {has(event.sponsors) && <p><strong>Supported by:</strong> {event.sponsors.join(', ')}</p>}
+    <p>
+      {has(event.registrationUrl) && (
+        <a class="ext" href={event.registrationUrl} rel="noopener">{linkLabel}<span class="visually-hidden"> for {event.title} (Luma)</span></a>
+      )}
+      {has(event.recapUrl) && <> · <a class="ext" href={event.recapUrl} rel="noopener">Read the recap<span class="visually-hidden"> for {event.title}</span></a></>}
+    </p>
+  </div>
+</li>

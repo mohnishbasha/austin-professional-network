@@ -1,0 +1,77 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import LinkedInCTA from '../components/LinkedInCTA.astro';
+import { url } from '../lib/url.mjs';
+
+const principles = [
+  ['Inclusive across career stages', 'Students, job seekers, professionals, and mentors are all part of the same conversation.'],
+  ['Professional respect', 'Everyone is treated with courtesy, whatever their title or employment status.'],
+  ['Authentic networking', 'Real conversations over transactional card swaps.'],
+  ['Mutual support', 'Help flows in every direction — anyone can offer something.'],
+  ['Knowledge sharing', 'Practical lessons from people who have been there.'],
+  ['Accessible and affordable', 'Gatherings are designed to keep barriers to attending low.'],
+];
+const paths = [
+  { icon: 'search', title: 'If you are looking for work', text: 'Come ready to share what kind of role you want. Ask about companies, industries, and how others found their path. Practice your introduction in a friendly room.' },
+  { icon: 'cap', title: 'If you are a student', text: 'Hear how careers really unfold, ask questions you might not ask in an interview, and meet people working in fields you are considering.' },
+  { icon: 'briefcase', title: 'If you are working', text: 'Expand your network beyond your company, stay current on other industries, and share what you have learned with people earlier in their careers.' },
+];
+---
+<Base title="About" current="about" description="The purpose of the Austin Professional Network Community and why in-person professional networking matters.">
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow">About</p>
+      <h1>Networking that starts with people</h1>
+      <p class="lead">Austin Professional Network Community brings people together to build meaningful professional relationships, exchange career knowledge, support job seekers, and strengthen the local professional community.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split">
+      <div>
+        <h2>Our purpose</h2>
+        <p>Many of us see neighbors and friends at social and cultural gatherings without ever learning what they do for work. Austin Bhet started as a way to change that — to meet professionally, understand each other's expertise, and be better able to help one another.</p>
+        <p>The community is volunteer-led and open to people at every career stage across the Greater Austin area.</p>
+      </div>
+      <div>
+        <h2>Why professional networking matters</h2>
+        <p>Careers are shaped by people as much as by résumés. A conversation can explain how an industry really works, surface an opportunity you would not have found online, or give you the confidence to try something new.</p>
+        <p>Networking is most useful when it is generous and ongoing — not just something you do when you need a job.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" aria-labelledby="in-person">
+    <div class="container narrow">
+      <h2 id="in-person">The value of meeting in person</h2>
+      <p>Online groups are great for staying in touch. But trust is built faster face to face. An Austin Bhet is an indoor, in-person gathering where people introduce themselves, hear from peers, and have the kind of follow-up conversations that rarely happen in a comment thread.</p>
+      <p>The LinkedIn group keeps everyone connected between gatherings; the gatherings make those connections real.</p>
+      <p><a href={url('austin-bhet/')}>Learn about the Austin Bhet format</a></p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="participate">
+    <div class="container">
+      <div class="section-head"><h2 id="participate">How to participate</h2></div>
+      <div class="grid">
+        {paths.map((p) => <div class="card"><Icon name={p.icon} /><h3>{p.title}</h3><p>{p.text}</p></div>)}
+      </div>
+      <div class="notice" style="margin-top:2rem">
+        <p><strong>Want to do more?</strong> Volunteer, mentor, present a topic, or support an event. See <a href={url('get-involved/')}>Get Involved</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" aria-labelledby="principles">
+    <div class="container">
+      <div class="section-head"><h2 id="principles">What we value</h2></div>
+      <div class="grid">
+        {principles.map(([t, d]) => <div class="card"><h3>{t}</h3><p>{d}</p></div>)}
+      </div>
+      <p class="muted" style="margin-top:1.5rem">The community does not guarantee jobs, referrals, interviews, or other career outcomes. It offers a place to learn, share, and connect.</p>
+    </div>
+  </section>
+
+  <section class="section"><div class="container"><LinkedInCTA /></div></section>
+</Base>

@@ -1,0 +1,14 @@
+---
+import site from '../data/site.json';
+const {
+  heading = 'Join the community on LinkedIn',
+  text = `Join the ${site.linkedInGroup.name} to connect with the community, participate in discussions, and stay informed about networking activities.`,
+} = Astro.props;
+---
+<div class="cta-band">
+  <div>
+    <h2>{heading}</h2>
+    <p>{text}</p>
+  </div>
+  <a class="btn ext" href={site.linkedInGroup.url} rel="noopener">Join Our LinkedIn Community</a>
+</div>

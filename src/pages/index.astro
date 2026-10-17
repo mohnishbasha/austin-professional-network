@@ -1,0 +1,147 @@
+---
+import Base from '../layouts/Base.astro';
+import HeroArt from '../components/HeroArt.astro';
+import Icon from '../components/Icon.astro';
+import EventCard from '../components/EventCard.astro';
+import LinkedInCTA from '../components/LinkedInCTA.astro';
+import site from '../data/site.json';
+import data from '../data/events.json';
+import { partitionEvents } from '../lib/events.mjs';
+import { url } from '../lib/url.mjs';
+
+const { upcoming, past } = partitionEvents(data.events);
+// Home shows the most recent first; the Events page lists the full history chronologically.
+const recentPast = [...past].reverse().slice(0, 3);
+
+const audiences = [
+  { icon: 'search', title: 'Job seekers', text: 'Looking for a job, an internship, or a career change? Meet people who can share advice about navigating the Austin job market.' },
+  { icon: 'briefcase', title: 'Working professionals', text: 'Meet peers outside your company, exchange ideas, and give back by sharing what you have learned.' },
+  { icon: 'cap', title: 'Students & recent graduates', text: 'Learn how careers actually unfold, build confidence, and meet professionals in fields you are curious about.' },
+  { icon: 'compass', title: 'Career changers', text: 'Exploring a new industry? Hear first-hand what different paths look like and what it takes to get there.' },
+  { icon: 'star', title: 'Mentors', text: 'Experienced professionals can review resumes, give a talk, join a panel, or simply be available to answer questions.' },
+  { icon: 'hands', title: 'Volunteers & supporters', text: 'Help organize gatherings, coordinate speakers, or support refreshments and venue space.' },
+];
+
+const happens = [
+  { icon: 'chat', title: 'Introductions & sharing', text: 'Everyone shares what they do today — or what they hope to do next.' },
+  { icon: 'mic', title: 'Talks & panels', text: 'Community members share career lessons, industry insights, and practical tips.' },
+  { icon: 'doc', title: 'Career advice', text: 'Practical guidance on resumes, interviews, and the hiring process.' },
+  { icon: 'link', title: 'Real networking', text: 'Conversations first, LinkedIn connections when both people want them.' },
+];
+
+const faqs = [
+  { q: 'Who can attend?', a: 'Anyone in the Greater Austin area interested in professional growth — students, job seekers, working professionals, career changers, and mentors. You do not need to be job hunting to benefit.' },
+  { q: 'Is there an upcoming event?', a: 'Not yet confirmed. The next Austin Bhet is being planned. Confirmed dates are posted on the Events page and shared in the LinkedIn group.' },
+  { q: 'What does “Bhet” mean?', a: 'Bhet (भेट) is a Marathi word for a meeting or get-together. Austin Bhet gatherings grew out of the Amhi Austinkar community and are about meeting in person.' },
+  { q: 'Does it cost anything?', a: 'Organizers aim to keep gatherings accessible and affordable. Any cost for a specific event will be listed on that event’s registration page.' },
+  { q: 'Will attending get me a job or a referral?', a: 'No one can promise that. The community is about building genuine relationships and sharing knowledge; opportunities sometimes follow, but nothing is guaranteed.' },
+  { q: 'How do I contact the organizers?', a: 'Join the LinkedIn group and message one of the group admins. We do not publish personal phone numbers or email addresses on this site.' },
+];
+---
+<Base current="home">
+  <section class="hero">
+    <div class="container hero__grid">
+      <div>
+        <p class="eyebrow">Greater Austin · Professional networking community</p>
+        <h1>Build Your Professional Network in Austin</h1>
+        <p class="tagline">{site.tagline}</p>
+        <p class="lead">Connect with job seekers, working professionals, students, and mentors. Share experiences, learn from one another, and build relationships that extend beyond LinkedIn.</p>
+        <div class="btn-row">
+          <a class="btn btn--primary ext" href={site.linkedInGroup.url} rel="noopener">Join Our LinkedIn Community</a>
+          <a class="btn btn--secondary" href={url('events/')}>Explore Community Events</a>
+        </div>
+      </div>
+      <HeroArt />
+    </div>
+  </section>
+
+  <section class="section section--alt" aria-labelledby="who">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Who it's for</p>
+        <h2 id="who">A room where every career stage belongs</h2>
+        <p class="lead">A student should feel comfortable next to an engineering leader. A job seeker should feel welcome whether or not they are employed today. Everyone should leave with something more useful than a stack of business cards.</p>
+      </div>
+      <div class="grid">
+        {audiences.map((a) => (
+          <div class="card"><Icon name={a.icon} /><h3>{a.title}</h3><p>{a.text}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="bhet">
+    <div class="container split">
+      <div>
+        <p class="eyebrow">In person</p>
+        <h2 id="bhet">What happens at an Austin Bhet</h2>
+        <p>An Austin Bhet is an indoor, in-person gathering built for conversation. The format is simple: meet people, hear what they do, learn something practical, and leave with relationships worth continuing.</p>
+        <p class="muted">The activities described here are the proposed format. Details for each gathering are confirmed by organizers and announced on the Events page.</p>
+        <div class="btn-row"><a class="btn btn--secondary" href={url('austin-bhet/')}>See the proposed format</a></div>
+      </div>
+      <div class="grid grid--2">
+        {happens.map((h) => (
+          <div class="card"><Icon name={h.icon} /><h3>{h.title}</h3><p>{h.text}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" aria-labelledby="events">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Events</p>
+        <h2 id="events">{upcoming.length ? 'Upcoming & past gatherings' : 'Past gatherings'}</h2>
+        {!upcoming.length && <p class="lead">Our next Austin Bhet is being planned. Join the LinkedIn community to stay connected and express your interest in future meetups.</p>}
+      </div>
+      {upcoming.length > 0 && (
+        <ul class="event-list" aria-label="Upcoming events" style="margin-bottom:1.25rem">
+          {upcoming.map((e) => <EventCard event={e} />)}
+        </ul>
+      )}
+      <ul class="event-list" aria-label="Past events">
+        {recentPast.map((e) => <EventCard event={e} />)}
+      </ul>
+      <div class="btn-row"><a class="btn btn--secondary" href={url('events/')}>All events</a></div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="involved">
+    <div class="container split">
+      <div>
+        <p class="eyebrow">Contribute</p>
+        <h2 id="involved">Volunteer, mentor, or present</h2>
+        <p>Austin Bhet is volunteer-led. The community grows when members step up to organize, share what they know, or help with logistics.</p>
+        <ul class="checklist">
+          <li>Help organize a meetup or coordinate speakers</li>
+          <li>Give a short talk or join a panel</li>
+          <li>Offer resume or career guidance</li>
+          <li>Mentor students and job seekers</li>
+          <li>Suggest topics or activities</li>
+        </ul>
+        <div class="btn-row"><a class="btn btn--secondary" href={url('get-involved/')}>Ways to get involved</a></div>
+      </div>
+      <div class="card">
+        <Icon name="cup" />
+        <h3>Sponsors & community supporters</h3>
+        <p>Organizations and individuals can support professional development by contributing refreshments, venue space, or educational resources.</p>
+        <p class="muted">We only list sponsors with their permission and only after their support is confirmed.</p>
+        <p><a href={url('get-involved/#sponsor')}>How sponsorship works</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" aria-labelledby="faq">
+    <div class="container narrow">
+      <p class="eyebrow">FAQ</p>
+      <h2 id="faq">Frequently asked questions</h2>
+      <div class="faq">
+        {faqs.map((f) => (<details><summary>{f.q}</summary><p>{f.a}</p></details>))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container"><LinkedInCTA /></div>
+  </section>
+</Base>

@@ -1,0 +1,103 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import LinkedInCTA from '../components/LinkedInCTA.astro';
+import { url } from '../lib/url.mjs';
+
+const activities = [
+  { icon: 'chat', title: 'Introductions and professional sharing', text: 'Attendees introduce themselves, explain what they currently do, or share the kind of role or career they hope to pursue.' },
+  { icon: 'people', title: 'Structured networking', text: 'Help attendees connect with people who share professional interests, career goals, or relevant experience.' },
+  { icon: 'doc', title: 'Job-search and resume advice', text: 'Practical guidance on resumes, interviews, job applications, and navigating the hiring process.' },
+  { icon: 'link', title: 'Networking and LinkedIn', text: 'Build meaningful professional relationships and connect on LinkedIn when both people wish to do so.' },
+  { icon: 'mic', title: 'Presentations and panel discussions', text: 'Professionals share experiences, industry insights, and career lessons.' },
+  { icon: 'star', title: 'Mentorship and peer support', text: 'Experienced professionals help students, job seekers, and career changers.' },
+  { icon: 'cup', title: 'Refreshments', text: 'Light refreshments from sponsors or community supporters, subject to confirmation for each event.' },
+  { icon: 'heart', title: 'Professional community building', text: 'Opportunities to reconnect after events and keep helping one another.' },
+];
+const program = [
+  ['Welcome and community introduction', 'Organizers set the tone and explain how the gathering works.'],
+  ['Brief attendee introductions', 'A short round so everyone knows who is in the room.'],
+  ['Professional sharing', 'What you do today, or what you aspire to do next.'],
+  ['A short practical presentation', 'Job seeking, resumes, interviews, or networking.'],
+  ['Panel or lessons learned', 'Working professionals share what they wish they had known.'],
+  ['Structured networking', 'Guided conversations and optional LinkedIn connections.'],
+  ['Informal conversation and refreshments', 'Time to follow up with the people you met.'],
+  ['Closing remarks and next steps', 'How to stay connected and get involved.'],
+];
+const topics = [
+  'How to improve a resume', 'How to prepare for interviews', 'Approaching the hidden job market',
+  'Making useful professional connections', 'Using LinkedIn effectively', 'Changing careers',
+  'Moving from university into professional work', 'Asking for referrals respectfully',
+  'Building professional confidence', 'Supporting peers during a job search', 'Mentoring early-career professionals',
+];
+---
+<Base title="Austin Bhet" current="austin-bhet" description="The proposed format for Austin Bhet: an indoor, in-person professional gathering for job seekers, professionals, students, and mentors.">
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow">The format</p>
+      <h1>What is an Austin Bhet?</h1>
+      <p class="lead">An indoor, professional, in-person gathering for job seekers, working professionals, students, and experienced mentors in the Greater Austin area. <em>Bhet</em> (भेट) is Marathi for a meeting or get-together.</p>
+      <div class="notice" role="note">
+        <p><strong>This page describes a proposed format.</strong> No upcoming event, venue, or sponsor is confirmed right now. Confirmed details for each gathering are posted on the <a href={url('events/')}>Events page</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="purpose">
+    <div class="container split">
+      <div>
+        <h2 id="purpose">The purpose</h2>
+        <p>Help attendees build authentic relationships, share career experiences, learn practical professional skills, and discover ways to support one another.</p>
+        <p>It is not only for job seekers. A good Austin Bhet gives everyone in the room — students, mentors, and working professionals alike — a reason to show up and something to take home.</p>
+      </div>
+      <div class="card">
+        <h3>The setting we look for</h3>
+        <ul class="checklist">
+          <li>An indoor space suited to conversation and introductions</li>
+          <li>Room for a short presentation or panel</li>
+          <li>Space to mingle informally</li>
+          <li>Comfortable and accessible for attendees</li>
+        </ul>
+        <p class="muted">Venues are confirmed per event and announced only once booked.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" aria-labelledby="activities">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="activities">Proposed activities</h2>
+        <p class="lead">Each gathering mixes some of these elements. The exact program varies by event.</p>
+      </div>
+      <div class="grid">
+        {activities.map((a) => <div class="card"><Icon name={a.icon} /><h3>{a.title}</h3><p>{a.text}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="program">
+    <div class="container narrow">
+      <h2 id="program">A sample program</h2>
+      <p class="muted">A suggested running order, not a finalized agenda. Timing is set by organizers for each event.</p>
+      <ol class="steps">
+        {program.map(([t, d]) => <li><div><h3>{t}</h3><p>{d}</p></div></li>)}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--alt" aria-labelledby="topics">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="topics">Possible topics for future gatherings</h2>
+        <p>Have a topic you'd like to hear about — or present? Share it in the LinkedIn group.</p>
+      </div>
+      <ul class="grid checklist" style="gap:0.5rem 1.5rem">
+        {topics.map((t) => <li>{t}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container"><LinkedInCTA heading="Be part of the next Austin Bhet" text="Join the Amhi Austinkar LinkedIn Group to hear when the next gathering is confirmed and to offer to present, mentor, or volunteer." /></div>
+  </section>
+</Base>

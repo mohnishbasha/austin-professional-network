@@ -1,0 +1,32 @@
+---
+import site from '../data/site.json';
+import { url } from '../lib/url.mjs';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div>
+        <p><strong>{site.name}</strong></p>
+        <p class="muted">{site.tagline}<br />A volunteer-led professional networking community in the Greater Austin area.</p>
+        <p><a class="ext" href={site.linkedInGroup.url} rel="noopener">Join the {site.linkedInGroup.name}</a></p>
+      </div>
+      <div>
+        <h2>Explore</h2>
+        <ul>
+          <li><a href={url('about/')}>About</a></li>
+          <li><a href={url('austin-bhet/')}>Austin Bhet</a></li>
+          <li><a href={url('events/')}>Events</a></li>
+          <li><a href={url('get-involved/')}>Get Involved</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Contact</h2>
+        {site.contact.email
+          ? <p><a href={`mailto:${site.contact.email}`}>{site.contact.email}</a></p>
+          : <p class="muted">The best way to reach organizers is to join the LinkedIn group and message a group admin.</p>}
+      </div>
+    </div>
+    <p class="site-footer__legal">© {year} {site.name}. Community-run and volunteer-supported. This site does not collect personal information. Participation does not guarantee jobs, referrals, or interviews.</p>
+  </div>
+</footer>

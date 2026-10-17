@@ -1,0 +1,63 @@
+---
+import Base from '../layouts/Base.astro';
+import EventCard from '../components/EventCard.astro';
+import LinkedInCTA from '../components/LinkedInCTA.astro';
+import site from '../data/site.json';
+import data from '../data/events.json';
+import { partitionEvents } from '../lib/events.mjs';
+import { url } from '../lib/url.mjs';
+
+const { upcoming, past, other } = partitionEvents(data.events);
+---
+<Base title="Events" current="events" description="Upcoming and past Austin Bhet professional networking gatherings in the Greater Austin area.">
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow">Events</p>
+      <h1>Austin Bhet gatherings</h1>
+      <p class="lead">In-person professional networking for job seekers, working professionals, students, and mentors. Confirmed gatherings are listed here and announced in the LinkedIn group.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="upcoming">
+    <div class="container">
+      <h2 id="upcoming">Upcoming events</h2>
+      {upcoming.length > 0 ? (
+        <ul class="event-list" data-section="upcoming">
+          {upcoming.map((e) => <EventCard event={e} />)}
+        </ul>
+      ) : (
+        <div class="empty-state" data-section="upcoming" data-empty="true">
+          <h3>No upcoming event is scheduled yet</h3>
+          <p>Our next Austin Bhet is being planned. Join the LinkedIn community to stay connected and express your interest in future meetups.</p>
+          <div class="btn-row">
+            <a class="btn btn--primary ext" href={site.linkedInGroup.url} rel="noopener">Join Our LinkedIn Community</a>
+            <a class="btn btn--secondary" href={url('austin-bhet/')}>What to expect</a>
+          </div>
+        </div>
+      )}
+      {other.length > 0 && (
+        <>
+          <h2 style="margin-top:3rem">Postponed or cancelled</h2>
+          <ul class="event-list" data-section="other">{other.map((e) => <EventCard event={e} />)}</ul>
+        </>
+      )}
+    </div>
+  </section>
+
+  <section class="section section--alt" aria-labelledby="past">
+    <div class="container">
+      <h2 id="past">Past events</h2>
+      <p class="muted">Links go to each gathering's original Luma page, kept for reference. Those pages may no longer accept registrations.</p>
+      <ul class="event-list" data-section="past">
+        {past.map((e) => <EventCard event={e} />)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="interest">
+    <div class="container">
+      <h2 id="interest" class="visually-hidden">Future event interest</h2>
+      <LinkedInCTA heading="Want to attend, speak, or help at the next one?" text="Join the Amhi Austinkar LinkedIn Group to hear about future meetups first and let organizers know you're interested — as an attendee, presenter, mentor, volunteer, or supporter." />
+    </div>
+  </section>
+</Base>
