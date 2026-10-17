@@ -42,6 +42,7 @@ npm run preview                                        # serves dist/ with the b
 |---|---|
 | CSS missing, links 404 | Wrong base path. The repo name must match `BASE_PATH`, so check the "Configure site URL" step log |
 | Deploy job: "Pages not enabled" / 404 on `deploy-pages` | Set Pages source to **GitHub Actions** (step 2 above) |
+| Deploy job fails with "Branch is not allowed to deploy to github-pages" | Settings → Environments → github-pages → add `main` to the deployment branches |
 | Deploy job: permission denied | The workflow needs `pages: write` and `id-token: write` (already set). Also check org policies |
 | `npm ci` fails | `package-lock.json` is out of sync. Run `npm install` locally and commit the lock file |
 | Node engine error | Astro 7 requires Node ≥ 22.22. CI reads `.nvmrc` |

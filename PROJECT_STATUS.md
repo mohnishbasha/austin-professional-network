@@ -3,7 +3,7 @@
 _Last updated: 2026-10-17_
 
 ## Summary
-The initial release is implemented and tested locally. GitHub Pages deployment is configured but **not yet verified**: no GitHub remote exists yet (see Blockers).
+The initial release is **live at https://mohnishbasha.github.io/austin-professional-network/**. It is deployed from the public repo https://github.com/mohnishbasha/austin-professional-network through GitHub Actions. Deployment was verified on 2026-10-17: all 5 pages and the CSS return 200, unknown paths return 404, and the live Events page shows all three past events plus the empty upcoming state.
 
 ## Phase progress
 
@@ -16,7 +16,7 @@ The initial release is implemented and tested locally. GitHub Pages deployment i
 | 5. Austin Bhet | ✅ | Proposed-format page with a "not confirmed" notice; sample program; playbook with configurable-duration agenda |
 | 6. Design and accessibility | ✅ | Responsive layout with no horizontal scroll at 375px (measured); light and dark themes; AA contrast tested; keyboard-operable menu |
 | 7. Automated testing | ✅ | `npm run check`: 19 tests passing |
-| 8. GitHub Pages deployment | ⏳ | Workflow written and passes `actionlint`. Needs a GitHub repo and Pages enabled |
+| 8. GitHub Pages deployment | ✅ | Pages source: GitHub Actions. The `github-pages` environment branch policy was extended to `main` (it defaulted to `master` only). |
 | 9. Final review | ✅ | Independent Security & Privacy and Integration reviews run; findings triaged in the Reviews section |
 
 ## Reference documents
@@ -56,18 +56,16 @@ No confirmed description was available for **August 2025**, so its card shows a 
 - `actionlint`: workflow passes.
 
 ### Not tested in this environment
-- Live GitHub Actions run and Pages deployment (no remote yet).
 - Screen-reader testing (VoiceOver/NVDA) and a full automated axe audit. The structural checks above are a partial substitute.
 - Real-device testing on iOS/Android.
 
 ## Blockers / manual steps
-1. **Create the GitHub repository and enable Pages** (Settings → Pages → Source: GitHub Actions). Repo owner and visibility are the project owner's call. See `docs/DEPLOYMENT.md`.
+1. **Dependabot PRs #1–#4** (action version bumps) are open. Review them and merge once their checks pass.
 2. **Official contact email:** none was provided, so `site.json` `contact.email` is empty and the site points to the LinkedIn group admins.
 3. **Organizer approval** is needed for any speaker names, attendance figures, venues, or photos from past events.
 4. **Task sheet access:** share it or export a sanitized copy if historical task details are wanted for the playbook.
 
 ## Next steps
-- Push to GitHub, confirm the first Actions run, and verify the live URL.
 - Add the next event to `events.json` once its date and registration link are confirmed.
 - Optionally add a custom domain (see `docs/DEPLOYMENT.md`).
 
