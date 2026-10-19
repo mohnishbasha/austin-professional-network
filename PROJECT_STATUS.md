@@ -1,6 +1,6 @@
 # Project Status
 
-_Last updated: 2026-10-17_
+_Last updated: 2026-10-19_
 
 ## Summary
 The initial release is **live at https://mohnishbasha.github.io/austin-professional-network/**. It is deployed from the public repo https://github.com/mohnishbasha/austin-professional-network through GitHub Actions. Deployment was verified on 2026-10-17: all 5 pages and the CSS return 200, unknown paths return 404, and the live Events page shows all three past events plus the empty upcoming state.
@@ -66,13 +66,18 @@ No confirmed description was available for **August 2025**, so its card shows a 
 - **Limitation:** `robots.txt` is ignored on a project site because it isn't at the domain root. Crawling is still allowed by default. A custom domain would make it effective.
 - **Manual step:** submit `sitemap.xml` in Google Search Console and Bing Webmaster Tools. This needs the owner's account.
 
-## Blockers / manual steps
-1. **Dependabot PRs #1–#4** (action version bumps) are open. Review them and merge once their checks pass.
-2. **Official contact email:** none was provided, so `site.json` `contact.email` is empty and the site points to the LinkedIn group admins.
-3. **Organizer approval** is needed for any speaker names, attendance figures, venues, or photos from past events.
-4. **Task sheet access:** share it or export a sanitized copy if historical task details are wanted for the playbook.
+## Maintenance log
+- 2026-10-17: Merged Dependabot PRs #1–#4 (checkout v7, setup-node v7, upload-pages-artifact v5, deploy-pages v5). CI and deploy on `main` succeeded.
+- 2026-10-19: Re-checked the live mobile header at 320, 375, and 430px. The menu button sits on the same row as the brand, and there is no horizontal scroll.
+
+## Blockers / manual steps (owner or organizers)
+1. **Official contact email:** none was provided, so `site.json` `contact.email` is empty and the site points to the LinkedIn group admins.
+2. **Organizer approval** is needed for any speaker names, attendance figures, venues, or photos from past events.
+3. **Task sheet access:** share it or export a sanitized copy if historical task details are wanted for the playbook.
 
 ## Next steps
+- Submit `sitemap.xml` in Google Search Console and Bing Webmaster Tools.
+- Do a quick check with a screen reader and on a real phone.
 - Add the next event to `events.json` once its date and registration link are confirmed.
 - Optionally add a custom domain (see `docs/DEPLOYMENT.md`).
 
