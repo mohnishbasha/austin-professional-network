@@ -55,8 +55,13 @@ No confirmed description was available for **August 2025**, so its card shows a 
 - Manual: headless Chrome screenshots at 1366px and 375px, in light and dark; `scrollWidth == 375` on all pages; mobile menu opens and closes (Escape closes it too).
 - `actionlint`: workflow passes.
 
+### Automated axe audit (live site, 2026-10-19)
+- axe-core (WCAG 2.0/2.1/2.2 A and AA, plus best-practice) run with headless Chrome on all 5 pages and the 404, in light and dark, at 1366px and 375px: **0 violations**.
+- Only "needs review" item: 7 `color-contrast` nodes on the home page. All are `<text>` inside the decorative `aria-hidden` hero SVG, where axe can't resolve layered backgrounds. Their colors (`brand`, `accent`, `muted` on `surface`/page backgrounds) are already covered by the contrast test.
+- The audit was run from a scratch directory. No dependencies were added to the repo.
+
 ### Not tested in this environment
-- Screen-reader testing (VoiceOver/NVDA) and a full automated axe audit. The structural checks above are a partial substitute.
+- Screen-reader testing (VoiceOver/NVDA). The structural checks and axe audit above are a partial substitute.
 - Real-device testing on iOS/Android.
 
 ## Search and agent readiness (added 2026-10-17)
@@ -68,6 +73,7 @@ No confirmed description was available for **August 2025**, so its card shows a 
 
 ## Maintenance log
 - 2026-10-17: Merged Dependabot PRs #1–#4 (checkout v7, setup-node v7, upload-pages-artifact v5, deploy-pages v5). CI and deploy on `main` succeeded.
+- 2026-10-19: Ran a full axe-core audit on the live site (0 violations; see Test results).
 - 2026-10-19: Re-checked the live mobile header at 320, 375, and 430px. The menu button sits on the same row as the brand, and there is no horizontal scroll.
 
 ## Blockers / manual steps (owner or organizers)
